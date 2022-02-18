@@ -1,9 +1,9 @@
 <script setup>
-import TheWelcome from '@/components/TheWelcome.vue'
+import StarshipsList from '@/components/StarshipsList.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <StarshipsList />
   </main>
 </template>
