@@ -1,116 +1,116 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from "vue-router";
+import TopBar from "@/components/TopBar.vue";
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
+  <div class="stars"></div>
+  <div class="twinkl"></div>
+  <TopBar />
   <RouterView />
+  
+  <div class="animate-starship">
+    <div id="starship-container">
+      <div class="flame"></div>
+      <img id="starship" src="@/assets/img/starship.svg" />
+    </div>
+  </div>
 </template>
 
 <style>
-@import '@/assets/base.css';
+@import "@/assets/base.css";
 
 #app {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-
   font-weight: normal;
+  height: 100vh;
 }
 
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+@font-face {
+  font-family: "Starjedi";
+  src: local("Starjedi"), url(./fonts/starjedi/Starjhol.ttf) format("truetype");
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-nav {
+.stars,
+.twinkl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  height: 100%;
+  display: block;
+}
+.stars {
+  background: #000 url("https://s3.bmp.ovh/imgs/2021/09/3760b5e2cc46f556.png")
+    repeat top center;
+}
+.twinkl {
+  background: transparent
+    url("https://s3.bmp.ovh/imgs/2021/09/68c03ba1cf80ca8b.png") repeat top
+    center;
+  z-index: 0;
+  animation: move-twink-back 200s linear infinite;
+}
+@keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+@keyframes starshipMovement {
+  0% {
+    left: -100px;
+  }
+
+  100% {
+    left: 100%;
+  }
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+
+.animate-starship {
+  margin-top: 130px;
+  overflow: hidden;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+#starship-container {
+  -webkit-animation: starshipMovement 8s infinite;
+  -moz-animation: starshipMovement 8s infinite;
+  animation: starshipMovement 8s infinite;
+  display: flex;
 }
 
-nav a:first-of-type {
-  border: 0;
+#starship {
+  width: 150px;
+  height: 150px;
+  transform:rotate(90deg);
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.flame{
+	width:150px;
+	height:150px;
+	background:linear-gradient(-45deg, red, orange);
+	border-radius: 150px 150px 0px 150px;
+	transform:rotate(130deg);
+	animation:.1s flame infinite;
+	filter:blur(10px);
+	position:relative;
+  right: -60px;
+	border:45px solid black;
+	border-left-width:25px;
+	border-top-width:25px;
+	
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+}
 
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+@keyframes flame{
+  0% {height:150px; width:150px;}
+  50% {height:140px; width:140px;}
+  100% {height:150px; width:150px;}
 }
 </style>

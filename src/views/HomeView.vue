@@ -7,3 +7,10 @@ import StarshipsList from '@/components/StarshipsList.vue'
     <StarshipsList />
   </main>
 </template>
+
+<style scoped>
+main {
+  max-width: 1280px;
+  margin: auto;
+}
+</style>

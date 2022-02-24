@@ -4,4 +4,10 @@ export default class ApiService {
     getStarships(url) {
       return fetch(url)
     }
-  }
+}
+
+// getStarships(url) {
+//   return fetch(url)
+// }
+
+// export { getStarships }
