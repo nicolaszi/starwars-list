@@ -2,17 +2,13 @@
   <div class="pagination">
     <div class="pagination-item">
       <button @click="onClickFirstPage" :disabled="isInFirstPage" type="button">
-        <font-awesome-icon icon="angles-left" title="premiere page"/>
+        <font-awesome-icon icon="angles-left" title="premiere page" />
       </button>
     </div>
 
     <div class="pagination-item">
-      <button
-        @click="onClickPreviousPage"
-        :disabled="isInFirstPage"
-        type="button"
-      >
-        <font-awesome-icon icon="angle-left"  title="page précédente"/>
+      <button @click="onClickPreviousPage" :disabled="isInFirstPage" type="button">
+        <font-awesome-icon icon="angle-left" title="page précédente" />
       </button>
     </div>
 
@@ -22,20 +18,18 @@
         @click="onClickPage(page.name)"
         :disabled="page.isDisabled"
         :class="{ active: isPageActive(page.name) }"
-      >
-        {{ page.name }}
-      </button>
+      >{{ page.name }}</button>
     </div>
 
     <div class="pagination-item">
       <button @click="onClickNextPage" :disabled="isInLastPage" type="button">
-        <font-awesome-icon icon="angle-right" title="page suivante"/>
+        <font-awesome-icon icon="angle-right" title="page suivante" />
       </button>
     </div>
 
     <div class="pagination-item">
       <button @click="onClickLastPage" :disabled="isInLastPage" type="button">
-          <font-awesome-icon icon="angles-right" title="dernière page"/>
+        <font-awesome-icon icon="angles-right" title="dernière page" />
       </button>
     </div>
   </div>
@@ -44,11 +38,6 @@
 <script>
 export default {
   props: {
-    maxVisibleButtons: {
-      type: Number,
-      required: false,
-      default: 3,
-    },
     totalPages: {
       type: Number,
       required: true,
@@ -63,22 +52,6 @@ export default {
     }
   },
   computed: {
-    startPage() {
-      if (this.currentPage === 1) {
-        return 1;
-      }
-      if (this.currentPage === this.totalPages) {
-        return this.totalPages - this.maxVisibleButtons + 1;
-      }
-
-      return this.currentPage - 1;
-    },
-    endPage() {
-      return Math.min(
-        this.startPage + this.maxVisibleButtons - 1,
-        this.totalPages
-      );
-    },
     pages() {
       const range = [];
       for (let i = 1; i <= this.totalPages; i++) {

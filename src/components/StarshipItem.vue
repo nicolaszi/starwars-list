@@ -22,7 +22,7 @@ export default {
 <style scoped lang="scss">
 .starship-card {
   border: 1px solid #d0d0d0;
-  background-color: #FFF;
+  background-color: #fff;
   color: #000;
   overflow: auto;
   border-radius: 8px;
@@ -32,8 +32,6 @@ export default {
 
   .starship-name {
     text-align: center;
+  }
 }
-}
-
-
 </style>

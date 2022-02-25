@@ -1,7 +1,7 @@
 <template>
-  <main>
-      <AddStarshipForm />
-  </main>
+    <main>
+        <AddStarshipForm />
+    </main>
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
 
 <style scoped>
 h1 {
-    color: #FFF;
+    color: #fff;
     text-align: center;
 }
 </style>
