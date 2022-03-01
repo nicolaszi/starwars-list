@@ -2,19 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm'
 
-import { STARSHIPS } from './starships.mock'
 import { Starship } from './starship.entity';
 
 @Injectable()
 export class StarshipsService {
-    starships = STARSHIPS;
-
     constructor(@InjectRepository(Starship) private starshipsRepository: Repository<Starship>) { }
 
-    async fetchAll(paginate = {}): Promise<Starship[]> {
-        return await this.starshipsRepository.find({
-            ...paginate
-        });
+    async fetchAll(paginate = {}) {
+        let [starships, starshipsCount] =  await this.starshipsRepository.findAndCount({...paginate});
+        return {
+            data: starships,
+            count: starshipsCount
+        };
     }
 
     async fetchByName(shipname: string): Promise<Starship> {
