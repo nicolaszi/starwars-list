@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { createStarship } from '@/services/api.services.js';
+
 export default {
     data() {
         return {
@@ -26,9 +28,7 @@ export default {
             this.checkErrors()
             if (!this.error) {
                 this.created = new Date()
-                let starships = JSON.parse(localStorage.getItem("starships") || "[]")
-                starships = starships.concat({ name: this.name, created: this.created })
-                localStorage.starships = JSON.stringify(starships)
+                createStarship({name: this.name, created: this.created})
                 this.toast = true
                 this.name = "";
                 this.created = "";

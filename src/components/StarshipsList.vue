@@ -1,12 +1,12 @@
 <template>
   <div class="spinner" v-if="isLoading"></div>
   <div v-if="!isLoading" class="header-list">
-    <div class="starship-count">{{ starships.length }} Vaisseaux</div>
+    <div class="starship-count">{{ starships.count }} Vaisseaux</div>
     <div class="button" @click="this.$router.push('/add')">Ajouter un Vaisseau</div>
   </div>
   <div v-if="!isLoading" class="starships-grid">
     <starship-item
-      v-for="starship in starships_paginated"
+      v-for="starship in starships.data"
       :key="starship.id"
       :name="starship.name"
       :created="starship.created"
@@ -23,18 +23,15 @@
 </template>
 
 <script>
-import ApiService from '@/services/api.services.js';
 import StarshipItem from '@/components/StarshipItem.vue';
 import PaginationList from '@/components/PaginationList.vue';
-
-const apiService = new ApiService()
+import { getStarships } from '@/services/api.services.js';
 
 export default {
   components: { StarshipItem, PaginationList },
   data() {
     return {
-      starships: JSON.parse(localStorage.getItem("starships") || "[]"),
-      starships_paginated: [],
+      starships: [],
       currentPage: 1,
       itemPerPage: 12,
       pageCount: 0,
@@ -42,34 +39,14 @@ export default {
     }
   },
   async created() {
+    this.isLoading = true
     await this.fetchData()
-    this.pageCount = Math.ceil(this.starships.length / 10)
-    this.pageChangeHandle(this.currentPage)
+    this.pageCount = Math.ceil(this.starships.count / 12)
     this.isLoading = false
   },
   methods: {
-    async fetchData() {
-      const data = await (await apiService.getStarships("https://swapi.dev/api/starships/")).json()
-      let newStarships = data.results
-      let next = data.next
-      while (next) {
-        const data = await (await apiService.getStarships(next)).json()
-        newStarships = newStarships.concat(data.results)
-        next = data.next
-      }
-
-      if (localStorage.starships) {
-        let existingStarships = this.starships
-        existingStarships.forEach(starship => {
-          const isExistsStarship = newStarships.find(ship => ship.name === starship.name)
-          if (!isExistsStarship) {
-            this.starships.concat(starship)
-          }
-        })
-      } else {
-        localStorage.starships = JSON.stringify(newStarships)
-        this.starships = newStarships
-      }
+    async fetchData(take = this.itemPerPage, skip = 0 ) {
+      this.starships = await getStarships(take, skip)
     },
     async pageChangeHandle(value) {
       switch (value) {
@@ -82,9 +59,8 @@ export default {
         default:
           this.currentPage = value
       }
-      const start = (this.currentPage === 1) ? 0 : (this.currentPage - 1) * 10;
-      const end = start + (this.itemPerPage)
-      this.starships_paginated = this.starships.slice(start, end)
+      const skip = (this.currentPage === 1) ? 0 : (this.currentPage - 1) * 12;
+      await this.fetchData(this.itemPerPage, skip)
     }
   }
 }
