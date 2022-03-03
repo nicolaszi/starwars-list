@@ -100,7 +100,7 @@ export default {
 }
 
 .header-list {
-  font-size: 12px;
+  font-size: 1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -127,18 +127,6 @@ export default {
 @media screen and (min-width: 768px) {
   .starships-grid {
     grid-template-columns: repeat(3, 1fr);
-  }
-
-  .header-list {
-    font-size: 18px;
-
-    .starship-count {
-      margin-left: 2rem;
-    }
-
-    .button {
-      margin-right: 2rem;
-    }
   }
 }
 

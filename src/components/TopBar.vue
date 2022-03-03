@@ -16,22 +16,16 @@ export default {
 <style scoped lang="scss">
 .top-bar {
     text-align: center;
-    font-size: 18px;
+    font-size: 3rem;
     align-items: center;
     color: var(--starwars-color);
     padding: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1em;
+    min-height: 200px;
 
     .title {
         font-family: "Starjedi";
         cursor: pointer;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    .top-bar {
-        font-size: 48px;
-        margin-bottom: 5rem;
     }
 }
 </style>
